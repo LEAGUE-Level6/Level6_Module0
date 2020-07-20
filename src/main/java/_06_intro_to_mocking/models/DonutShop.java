@@ -1,5 +1,6 @@
-package _05_intro_to_mocking.models;
+package _06_intro_to_mocking.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DonutShop {
@@ -8,13 +9,21 @@ public class DonutShop {
 
     private int donutsRemaining;
 
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     public DonutShop() {
     }
 
     public void makeDonuts(){
         this.donutsRemaining += 50;
+    }
+
+    public void throwAwayLeftovers() {
+        this.donutsRemaining = 0;
+    }
+
+    public void addOrder(Order order){
+        orders.add(order);
     }
 
     public int getDonutsRemaining() {
@@ -32,5 +41,6 @@ public class DonutShop {
     public void setOpenForBusiness(boolean openForBusiness) {
         this.openForBusiness = openForBusiness;
     }
+
 
 }
