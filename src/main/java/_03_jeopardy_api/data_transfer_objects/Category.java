@@ -1,4 +1,4 @@
-package _03_jeopardy_api.pojo;
+package _03_jeopardy_api.data_transfer_objects;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

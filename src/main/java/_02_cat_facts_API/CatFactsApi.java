@@ -1,57 +1,51 @@
 package _02_cat_facts_API;
 
-import _02_cat_facts_API.pojo.CatWrapper;
-import com.google.gson.Gson;
-
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import _02_cat_facts_API.data_transfer_objects.CatWrapper;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 
 public class CatFactsApi {
 
-    private static final Gson gson = new Gson();
+    private static final String baseUrl = "https://meowfacts.herokuapp.com/";
 
-    public static void main(String[] args) {
-        String catFact = getCatFact();
-        System.out.println(catFact);
+    private final WebClient webClient;
+
+    public CatFactsApi() {
+        this.webClient = WebClient
+                .builder()
+                .baseUrl(baseUrl)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
     }
 
-    public static String getCatFact() {
+    public String getCatFact() {
 
         //create the request URL
-        //can be found in the documentation: https://catfact.ninja/
-        String requestURL = "https://catfact.ninja/fact";
+        //a swagger page for this very simple API can be found here: https://app.swaggerhub.com/apis-docs/whiterabbit8/meowfacts/1.0.0
+        //this request doesn't require url parameters, so you can omit the .uri() method call
+        Flux<CatWrapper> catWrapperFlux = webClient.get()
+                .retrieve()
+                /*.onStatus(httpStatus -> HttpStatus.NOT_FOUND.equals(httpStatus),
+                        clientResponse -> Mono.empty())*/
+                .bodyToFlux(CatWrapper.class);
 
-        try {
-            //enter to code from the NewsAPI example to make the request
-            URL url = new URL(requestURL);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            JsonReader repoReader = Json.createReader(con.getInputStream());
-            JsonObject userJSON = ((JsonObject) repoReader.read());
-            con.disconnect();
+        //uncomment the next line to see the actual JSON response -
+        // this is what was inputted into jsonschema2pojo.com
+        //System.out.println(userJSON);
 
-            //uncomment the next line to see the actual JSON response -
-            // this is what was inputted into jsonschema2pojo.com
-            //System.out.println(userJSON);
+        //Use http://www.jsonschema2pojo.org/ to generate your POJOs
+        //and place them in the cat_facts_API.pojo package
+        //select Target Language = java, Source Type = JSON, Annotation Style = Gson
 
-            //Use http://www.jsonschema2pojo.org/ to generate your POJOs
-            //and place them in the cat_facts_API.pojo package
-            //select Target Language = java, Source Type = JSON, Annotation Style = Gson
+        //deserialize the response into a java object using the class you just created
+        CatWrapper catWrapper = catWrapperFlux.collectList().block().get(0);
 
-            //deserialize the response into a java object using the class you just created
-            CatWrapper catWrapper = gson.fromJson(userJSON.toString(), CatWrapper.class);
-
-            //get the cat fact from the response
-            String fact = catWrapper.getFact();
-            //send the message
-            return fact;
-
-        } catch (Exception e) {
-            return e.getMessage();
-        }
+        //get the cat fact from the response
+       // String fact = catWrapper.getFact();
+        //send the message
+        return catWrapper.getData().get(0);
 
     }
 }

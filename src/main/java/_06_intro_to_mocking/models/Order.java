@@ -1,4 +1,4 @@
-package _05_intro_to_mocking.models;
+package _06_intro_to_mocking.models;
 
 public class Order {
 

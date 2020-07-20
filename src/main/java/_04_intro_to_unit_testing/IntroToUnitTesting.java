@@ -2,12 +2,14 @@ package _04_intro_to_unit_testing;
 
 /*
 In the real world, no program is complete until it has been properly tested.
-Writing test is soemthing that all software developers should be familiar with.
+Writing test is something that all software developers should be familiar with.
 While we will be looking specifically at writing unit tests in Java, the same concepts are
 applicable to all programming languages.
 
 A unit test is responsible for verifying that one small piece (i.e. "unit") works correctly.
 Typically this may be a single method.
+
+tests can be found in a corresponding package under src.test.java
  */
 
 import javax.swing.*;
