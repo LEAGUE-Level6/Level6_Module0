@@ -6,6 +6,15 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
+/*
+
+Use the meow facts API to show the user a random cat fact.
+Make an initial request, saving the response as a String to facilitate making your Plain Old Java Objects to represent the request.
+Then, write a method that will save the reponse as an instance of your object, returning the fact from that object.
+
+A swagger page for this very simple API can be found here: https://app.swaggerhub.com/apis-docs/whiterabbit8/meowfacts/1.0.0
+
+ */
 public class CatFactsApi {
 
     private static final String baseUrl = "https://meowfacts.herokuapp.com/";
@@ -20,32 +29,42 @@ public class CatFactsApi {
                 .build();
     }
 
-    public String getCatFact() {
-
-        //create the request URL
-        //a swagger page for this very simple API can be found here: https://app.swaggerhub.com/apis-docs/whiterabbit8/meowfacts/1.0.0
-        //this request doesn't require url parameters, so you can omit the .uri() method call
-        Flux<CatWrapper> catWrapperFlux = webClient.get()
+    public void testRequest(){
+        //Use the WebClient to make the request, converting the response to a String
+        //this request doesn't require url parameters, so you can omit the .uri() method call entirely
+        Flux<String> stringFlux = webClient.get()
                 .retrieve()
-                /*.onStatus(httpStatus -> HttpStatus.NOT_FOUND.equals(httpStatus),
-                        clientResponse -> Mono.empty())*/
-                .bodyToFlux(CatWrapper.class);
+                .bodyToFlux(String.class);
 
-        //uncomment the next line to see the actual JSON response -
-        // this is what was inputted into jsonschema2pojo.com
-        //System.out.println(userJSON);
+        //collect the response from the Flux object
+        String response = stringFlux.collectList().block().get(0);
+
+        //print out the actual JSON response -
+        //this is what you will input into jsonschema2pojo.com
+        System.out.println(response);
 
         //Use http://www.jsonschema2pojo.org/ to generate your POJOs
-        //and place them in the cat_facts_API.pojo package
+        //and place them in the cat_facts_API.data_transfer_objects package.
         //select Target Language = java, Source Type = JSON, Annotation Style = Gson
 
-        //deserialize the response into a java object using the class you just created
+    }
+
+    public String getCatFact() {
+
+        //Make the request, saving the reponse in an object of the type that you just created in your
+        //data_transfer_objects package
+        Flux<CatWrapper> catWrapperFlux = webClient.get()
+                .retrieve()
+                .bodyToFlux(CatWrapper.class);
+
+        //collect the response into a java object using the class you just created
         CatWrapper catWrapper = catWrapperFlux.collectList().block().get(0);
 
         //get the cat fact from the response
-       // String fact = catWrapper.getFact();
+        String message = catWrapper.getData().get(0);
+
         //send the message
-        return catWrapper.getData().get(0);
+        return message;
 
     }
 }

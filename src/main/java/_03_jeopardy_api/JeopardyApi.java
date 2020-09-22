@@ -17,8 +17,6 @@ To simplify things a little bit, we will just ask the user one question from eac
 
 public class JeopardyApi {
 
-    private static final Gson gson = new Gson();
-
     private final WebClient webClient;
 
     private static final String baseUrl = "http://jservice.io/api/clues";
