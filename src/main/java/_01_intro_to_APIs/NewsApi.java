@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 /*
 An Application Programming Interface (API) is an access point to an external service.  For example, this News API allows
 people to send a request, and receive information about a news story.  This opens a whole world of possibilities, allowing
-the programs you write to communicate with other applications which are on the internet.  At this point, we will focus on APIs
+the programs you write to communicate with other applications using the magic of the internet.  At this point, we will focus on APIs
 that allow us to GET information, but some APIs also allow users to change the data that is stored
 by that service.
 
@@ -83,6 +83,11 @@ public class NewsApi {
     }
 
     public String getNewsStoryByTopic(String topic) {
+        /*
+        This method is similar to the above, but on line 97 accepts the response as
+        ApiExampleWrapper.class instead of String.class.  It then demonstrates how we could use that
+        object, just like any other java object, to retrieve specific pieces of information from the response we received.
+         */
 
         Flux<ApiExampleWrapper> apiExampleWrapperFlux = webClient.get()
                 .uri(uriBuilder -> uriBuilder
