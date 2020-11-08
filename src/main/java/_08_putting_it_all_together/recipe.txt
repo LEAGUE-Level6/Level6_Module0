@@ -1,0 +1,5 @@
+Now we will look at how to use unit testing and mocking to test a class that utilizes an API.
+Connecting to an API is a prime example of when we would want to use mocking, as we do not want to rely
+on the class making the request, or the service itself when we write unit tests.
+Examine IntroToApisTest in the main.java.test._01_intro_to_APIs package, and ask if you have any questions.
+Next, you will apply everything we have discussed to test a class utilizing an API yourself.
