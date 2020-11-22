@@ -1,7 +1,8 @@
 package _01_intro_to_APIs;
 
-import _01_intro_to_APIs.data_transfer_objects.ApiExampleWrapper;
-import _01_intro_to_APIs.data_transfer_objects.Article;
+import _02_intro_to_authenticated_APIs.NewsApi;
+import _02_intro_to_authenticated_APIs.data_transfer_objects.ApiExampleWrapper;
+import _02_intro_to_authenticated_APIs.data_transfer_objects.Article;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

@@ -1,4 +1,4 @@
-package _01_intro_to_APIs.data_transfer_objects;
+package _02_intro_to_authenticated_APIs.data_transfer_objects;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

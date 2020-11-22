@@ -1,35 +1,33 @@
 package _01_intro_to_APIs;
 
-import _01_intro_to_APIs.data_transfer_objects.ApiExampleWrapper;
-import _01_intro_to_APIs.data_transfer_objects.Article;
+import _01_intro_to_APIs.data_transfer_objects.Result;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /*
-An Application Programming Interface (API) is an access point to an external service.  For example, this News API allows
-people to send a request, and receive information about a news story.  This opens a whole world of possibilities, allowing
+An Application Programming Interface (API) is an access point to an external service.  For example, this Cheetah Search API allows
+people to send a request, and receive information about books.  This opens a whole world of possibilities, allowing
 the programs you write to communicate with other applications which are on the internet.  At this point, we will focus on APIs
 that allow us to GET information, but some APIs also allow users to change the data that is stored
 by that service.
 
-The complete documentation for the NewsAPI can be found here:
-https://newsapi.org/docs/get-started
+The documentation for the Cheetah Search API can be found here:
+https://cheetah.api.jointheleague.org
+
+This API was created by the Cheetah class at the League of Amazing Programmers, for their level 7 project.
  */
 
 
-public class NewsApi {
+public class CheetahSearchApi {
 
-    //Some APIs require a key to verify that you have access to that service
-    //API key is received through creating an account on the web site.
-    private static final String baseUrl = "http://newsapi.org/v2/everything";
-    private static final String apiKey = "59ac01326c584ac0a069a29798794bec";
+    private static final String baseUrl = "https://cheetah.api.jointheleague.org/searchLocResults";
 
     //We will use WebClient to make the request
     private WebClient webClient;
 
-    public NewsApi() {
+    public CheetahSearchApi() {
         //build the WebClient
         this.webClient = WebClient
                 .builder()
@@ -45,14 +43,12 @@ public class NewsApi {
         //This uri is where are making our GET request
         //the resulting uri would look like:
         //http://newsapi.org/v2/everything?q=pizza&sortBy=popularity&apiKey=59ac01326c584ac0a069a29798794bec
-        Flux<String> stringFlux = webClient.get()
+        Mono<String> stringMono = webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .queryParam("q", "pizza")
-                        .queryParam("sortBy", "popularity")
-                        .queryParam("apiKey", apiKey)
+                        .queryParam("q", "Java")
                         .build())
                 .retrieve()
-                .bodyToFlux(String.class);
+                .bodyToMono(String.class);
 
 
         /*
@@ -77,42 +73,37 @@ public class NewsApi {
         //data_transfer_objects package.
         //Once we have created those classes, we are able to save the response as a java object, and effectively
         //manipulate the response using getters to pull exactly what we need out of it.
-        String response = stringFlux.collectList().block().get(0);
+        String response = stringMono.block();
 
         System.out.println(response);
     }
 
-    public String getNewsStoryByTopic(String topic) {
+    public String getBookByTopic(String topic) {
 
-        Flux<ApiExampleWrapper> apiExampleWrapperFlux = webClient.get()
+        Mono<Result[]> cheetahWrapperMono = webClient
+                .get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("q", topic)
-                        .queryParam("sortBy", "popularity")
-                        .queryParam("apiKey", apiKey)
                         .build())
                 .retrieve()
-                .bodyToFlux(ApiExampleWrapper.class);
+                .bodyToMono(Result[].class);
 
         //collect the response into a java object using the classes you just created
-        ApiExampleWrapper apiExampleWrapper = apiExampleWrapperFlux.collectList().block().get(0);
+        Result[] cheetahWrapper = cheetahWrapperMono.block();
+
+        //We'll just use the first result from the list
+        Result result = cheetahWrapper[0];
 
         //get the first article (these are just java objects now)
-        Article article = apiExampleWrapper.getArticles().get(0);
+        String bookTitle = result.getTitle();
 
         //get the title of the article
-        String articleTitle = article.getTitle();
-
-        //get the content of the article
-        String articleContent = article.getContent();
-
-        //get the URL of the article
-        String articleUrl = article.getUrl();
+        String bookLink = result.getLink();
 
         //create the message
         String message =
-                articleTitle + " -\n"
-                        + articleContent
-                        + "\nFull article: " + articleUrl;
+                bookTitle + " -\n"
+                        + bookLink;
 
         //send the message
         return message;
@@ -124,4 +115,5 @@ public class NewsApi {
     }
 
 }
+
 
