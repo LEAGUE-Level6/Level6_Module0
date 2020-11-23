@@ -10,7 +10,6 @@ public class Result {
 
     private String link;
 
-
     public String getTitle() {
         return title;
     }
@@ -22,4 +21,5 @@ public class Result {
     public String getLink() {
         return link;
     }
+
 }

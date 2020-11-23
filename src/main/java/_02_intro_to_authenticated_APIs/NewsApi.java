@@ -8,11 +8,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
 /*
-An Application Programming Interface (API) is an access point to an external service.  For example, this News API allows
-people to send a request, and receive information about a news story.  This opens a whole world of possibilities, allowing
-the programs you write to communicate with other applications which are on the internet.  At this point, we will focus on APIs
-that allow us to GET information, but some APIs also allow users to change the data that is stored
-by that service.
+Most APIs require that you provide some sort of proof that you have access to that service.  This can be accomplished
+in many ways, but typically it is done through providing a secret token each time you make a request.  The token is usually
+created by the user via the API's website, and is used when requests are made to authenticate yourself.
+
+This News API expects the user to pass the API key as a query parameter, just like the query parameters we saw in the
+previous two recipes.
 
 The complete documentation for the NewsAPI can be found here:
 https://newsapi.org/docs/get-started
@@ -21,7 +22,6 @@ https://newsapi.org/docs/get-started
 
 public class NewsApi {
 
-    //Some APIs require a key to verify that you have access to that service
     //API key is received through creating an account on the web site.
     private static final String baseUrl = "http://newsapi.org/v2/everything";
     private static final String apiKey = "59ac01326c584ac0a069a29798794bec";

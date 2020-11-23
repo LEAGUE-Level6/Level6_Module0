@@ -9,7 +9,7 @@ applicable to all programming languages.
 A unit test is responsible for verifying that one small piece (i.e. "unit") works correctly.
 Typically this may be a single method.
 
-tests can be found in a corresponding package under src.test.java
+The unit tests for this class can be found in a corresponding package under src.test.java
  */
 
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class IntroToUnitTesting {
         return new JButton("Click Here!");
     }
 
-    public void throwsExcpetion(){
+    public void throwsException(){
         throw new IllegalArgumentException("This should throw an exception");
     }
 

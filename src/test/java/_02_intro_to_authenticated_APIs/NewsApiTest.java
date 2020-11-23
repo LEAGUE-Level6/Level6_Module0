@@ -1,4 +1,4 @@
-package _01_intro_to_APIs;
+package _02_intro_to_authenticated_APIs;
 
 import _02_intro_to_authenticated_APIs.NewsApi;
 import _02_intro_to_authenticated_APIs.data_transfer_objects.ApiExampleWrapper;

@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 class introToUnitTestingTest {
@@ -21,7 +19,7 @@ class introToUnitTestingTest {
 
         //When
         //Then
-        assertThat(expected).isEqualTo(underTest.add(a, b));
+        assertEquals(expected, underTest.add(a, b));
     }
 
     @Test
@@ -41,17 +39,15 @@ class introToUnitTestingTest {
         //Given
         //When
         //Then
-        assertThat(underTest.createButton()).isInstanceOf(JButton.class);
+        assertTrue(underTest.createButton() instanceof JButton);
     }
 
     @Test
-    void itShouldThrow(){
+    void itShouldThrowException(){
         //Given
         //When
         //Then
-        assertThatThrownBy(() -> underTest.throwsExcpetion())
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("This should throw an exception");
+        assertThrows(IllegalArgumentException.class, () -> underTest.throwsException());
     }
 
 }
