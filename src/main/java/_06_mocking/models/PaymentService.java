@@ -1,4 +1,4 @@
-package _06_intro_to_mocking.models;
+package _06_mocking.models;
 
 /*
 This class would communicate with an API to make actual charges to the customers' cards.  The Stripe API is

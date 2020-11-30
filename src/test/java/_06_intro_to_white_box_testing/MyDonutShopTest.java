@@ -1,10 +1,11 @@
-//package _06_intro_to_mocking;
+//package _06_intro_to_white_box_testing;
 //
-//import _06_intro_to_mocking.models.DonutShop;
-//import _06_intro_to_mocking.models.Order;
+//import _06_mocking.MyDonutShop;
+//import _06_mocking.models.DeliveryService;
+//import _06_mocking.models.Order;
+//import _06_mocking.models.PaymentService;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
-//import org.mockito.InjectMocks;
 //import org.mockito.Mock;
 //import org.mockito.MockitoAnnotations;
 //
@@ -23,18 +24,15 @@
 //
 //We can create mocks of any external objects that we need to use, in this case PaymentService and DeliveryService.
 //These mocks represent their respective objects, but do not actually do anything when methods are called.
-//Mockito accomplishes this by using reflection to inspect these objects and create fake objects that return default/null values.
-//This is great because we can now test that MyDonutShop is correct, without relying on the validity of the other objects.
+//Mockito accomplishes this by using reflection to inspect these objects and create subclasses of these objects that return
+//default/null values. This is great because we can now test that MyDonutShop is correct, without relying on the validity
+//of the other objects.
 //
 //
 //when to mock:
 //1. resource is unreliable (network call, load from file)
 //2. a class is hard to instantiate (e.g. interface or complex class)
 //3. want to verify that a certain behavior in that class happened (e.g. no interactions, certain number of interactions, or methods called in certain order)
-//
-//
-//
-//
 //
 //Of particular importance are two of this class' dependencies: PaymentService and DeliveryService.  These classes
 //contact an outside provider in order to help us fill our orders.
@@ -53,13 +51,19 @@
 //    MyDonutShop underTest;
 //
 //    @Mock
-//    DonutShop donutShopMock;
+//    PaymentService paymentService;
+//
+//    @Mock
+//    DeliveryService deliveryService;
 //
 //    @BeforeEach
 //    void setUp() {
+//        //This line initializes all of the mocks declared above
 //        MockitoAnnotations.openMocks(this);
 //        underTest = new MyDonutShop();
-//        underTest.setDonutShop(donutShopMock);
+//        //injecting the mocks into MyDonutShop using setters
+//        underTest.setPaymentService(paymentService);
+//        underTest.setDeliveryService(deliveryService);
 //    }
 //
 //    @Test

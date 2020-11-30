@@ -1,4 +1,4 @@
-package _06_intro_to_mocking;
+package _06_mocking;
 
 /*
 
@@ -11,9 +11,9 @@ for more information about unit testing this class.
 
  */
 
-import _06_intro_to_mocking.models.DeliveryService;
-import _06_intro_to_mocking.models.Order;
-import _06_intro_to_mocking.models.PaymentService;
+import _06_mocking.models.DeliveryService;
+import _06_mocking.models.Order;
+import _06_mocking.models.PaymentService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,16 @@ public class MyDonutShop {
 
     private List<Order> orders = new ArrayList<>();
 
-    PaymentService paymentService = new PaymentService();
+    PaymentService paymentService;
 
-    DeliveryService deliveryService = new DeliveryService();
+    DeliveryService deliveryService;
 
-//    public static void main(String[] args) {
+    public MyDonutShop(PaymentService paymentService, DeliveryService deliveryService) {
+        this.paymentService = paymentService;
+        this.deliveryService = deliveryService;
+    }
+
+    //    public static void main(String[] args) {
 //        MyDonutShop myDonutShop = new MyDonutShop();
 //        myDonutShop.openForTheDay();
 //        myDonutShop.takeOrder(new Order("Patrick", 100));
@@ -60,6 +65,15 @@ public class MyDonutShop {
         }
     }
 
+    public void addOrder(Order order){
+        if(paymentService.charge(order)){
+            orders.add(order);
+            if(order.isDelivery()){
+                deliveryService.scheduleDelivery(order);
+            }
+        }
+    }
+
     public void makeDonuts(){
         this.donutsRemaining += 50;
     }
@@ -68,13 +82,12 @@ public class MyDonutShop {
         this.donutsRemaining = 0;
     }
 
-    public void addOrder(Order order){
-        if(paymentService.charge(order)){
-            orders.add(order);
-            if(order.isDelivery()){
-                deliveryService.scheduleDelivery(order);
-            }
-        }
+    public void setPaymentService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+
+    public void setDeliveryService(DeliveryService deliveryService) {
+        this.deliveryService = deliveryService;
     }
 
 }
