@@ -1,5 +1,8 @@
 package _06_intro_to_mocking.models;
 
+import _07_intro_to_mocking.models.Car;
+import _08_mocking.models.CellPhone;
+import _08_mocking.models.DeliveryDriver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

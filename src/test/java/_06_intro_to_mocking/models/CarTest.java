@@ -1,5 +1,8 @@
 package _06_intro_to_mocking.models;
 
+import _07_intro_to_mocking.models.Car;
+import _07_intro_to_mocking.models.Engine;
+import _07_intro_to_mocking.models.GasTank;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
