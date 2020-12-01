@@ -4,6 +4,8 @@ public class Order {
 
     final String customerName;
 
+    final String customerPhoneNumber;
+
     final int numberOfDonuts;
 
     final long dollarAmount;
@@ -13,11 +15,12 @@ public class Order {
     final boolean delivery;
 
     public Order(String customerName,
-                 int numberOfDonuts,
+                 String customerPhoneNumber, int numberOfDonuts,
                  long dollarAmount,
                  String creditCardNumber,
                  boolean delivery) {
         this.customerName = customerName;
+        this.customerPhoneNumber = customerPhoneNumber;
         this.numberOfDonuts = numberOfDonuts;
         this.dollarAmount = dollarAmount;
         this.creditCardNumber = creditCardNumber;

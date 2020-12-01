@@ -8,14 +8,12 @@ public class PaymentService {
 
     public boolean charge(Order order){
         //this method contains code that would connect with an API to charge the customers card.
-        boolean paymentSuccessful = true;
-        return paymentSuccessful;
+        return true;
     }
 
     public double getTotalSales(){
         //this method contains code that would connect with an API to retrieve the total sales for the shop
-        double totalSales = 1_000_000;
-        return totalSales;
+        return 1_000_000;
     }
 
 }

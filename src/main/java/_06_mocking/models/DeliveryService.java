@@ -1,5 +1,6 @@
 package _06_mocking.models;
 
+import _06_intro_to_mocking.models.DeliveryDriver;
 import _06_intro_to_mocking.models.Car;
 
 import java.util.List;
@@ -8,7 +9,7 @@ public class DeliveryService {
 
     boolean acceptingOrders = true;
 
-    List<Driver> availableDrivers;
+    List<DeliveryDriver> availableDeliveryDrivers;
 
     List<Car> availableCars;
 
@@ -16,8 +17,8 @@ public class DeliveryService {
 
     List<Order> canceledOrders;
 
-    public DeliveryService(List<Driver> availableDrivers, List<Car> availableCars) {
-        this.availableDrivers = availableDrivers;
+    public DeliveryService(List<DeliveryDriver> availableDeliveryDrivers, List<Car> availableCars) {
+        this.availableDeliveryDrivers = availableDeliveryDrivers;
         this.availableCars = availableCars;
     }
 
@@ -31,7 +32,7 @@ public class DeliveryService {
 
     public boolean deliver() throws Exception {
         //give the orders to the driver
-        if (availableDrivers.size() <= 0 || availableCars.size() <= 0) {
+        if (availableDeliveryDrivers.size() <= 0 || availableCars.size() <= 0) {
             throw new Exception("Sorry we currently do not have the resources available to complete more deliveries");
         }
 
@@ -39,10 +40,10 @@ public class DeliveryService {
         for (Order order : orders) {
 
             //have the driver deliver
-            Driver driver = availableDrivers.get(0);
+            DeliveryDriver deliveryDriver = availableDeliveryDrivers.get(0);
 
             //if the delivery was completed
-            boolean deliveryCompleted = driver.completeDelivery(order);
+            boolean deliveryCompleted = deliveryDriver.completeDelivery(order);
 
             //remove from orders
             if (deliveryCompleted) {
@@ -52,7 +53,7 @@ public class DeliveryService {
             //else
             else {
                 //contact the customer
-                boolean customerContacted = driver.contactCustomer(order);
+                boolean customerContacted = deliveryDriver.contactCustomer(order);
                 //if they answer
                 if (customerContacted) {
                     //deliver to customer
