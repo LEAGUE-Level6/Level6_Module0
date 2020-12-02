@@ -1,5 +1,6 @@
 package _05_intro_to_unit_testing;
 
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -47,7 +48,8 @@ class introToUnitTestingTest {
         //Given
         //When
         //Then
-        assertThrows(IllegalArgumentException.class, () -> underTest.throwsException());
+        Throwable exceptionThrown = assertThrows(IllegalArgumentException.class, () -> underTest.throwsException());
+        assertEquals(exceptionThrown.getMessage(), "This should throw an exception");
     }
 
 }

@@ -1,4 +1,4 @@
-package _06_intro_to_mocking.models;
+package _08_mocking;
 
 import _07_intro_to_mocking.models.Car;
 import _08_mocking.models.CellPhone;

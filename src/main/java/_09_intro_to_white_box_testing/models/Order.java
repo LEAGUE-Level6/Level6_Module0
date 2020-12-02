@@ -2,21 +2,23 @@ package _09_intro_to_white_box_testing.models;
 
 public class Order {
 
-    final String customerName;
+    private final String customerName;
 
-    final String customerPhoneNumber;
+    private final String customerPhoneNumber;
 
-    final int numberOfDonuts;
+    private final int numberOfDonuts;
 
-    final long dollarAmount;
+    private final double dollarAmount;
 
-    final String creditCardNumber;
+    private final String creditCardNumber;
 
-    final boolean delivery;
+    private final boolean delivery;
+
+    private boolean completed = false;
 
     public Order(String customerName,
                  String customerPhoneNumber, int numberOfDonuts,
-                 long dollarAmount,
+                 double dollarAmount,
                  String creditCardNumber,
                  boolean delivery) {
         this.customerName = customerName;
@@ -35,7 +37,7 @@ public class Order {
         return numberOfDonuts;
     }
 
-    public long getDollarAmount() {
+    public double getDollarAmount() {
         return dollarAmount;
     }
 
@@ -49,6 +51,10 @@ public class Order {
 
     public String getCustomerPhoneNumber() {
         return customerPhoneNumber;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     @Override

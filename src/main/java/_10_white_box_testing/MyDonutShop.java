@@ -1,4 +1,4 @@
-package _09_intro_to_white_box_testing;
+package _10_white_box_testing;
 
 /*
 
@@ -11,14 +11,14 @@ for more information about unit testing this class.
 
  */
 
-import _10_white_box_testing.DeliveryService;
+import _09_intro_to_white_box_testing.models.DeliveryService;
 import _09_intro_to_white_box_testing.models.Order;
-import _09_intro_to_white_box_testing.models.PaymentService;
+import _10_white_box_testing.models.PaymentService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyDonutShop {
+public class    MyDonutShop {
 
     private boolean openForBusiness;
 
@@ -51,7 +51,7 @@ public class MyDonutShop {
         openForBusiness = false;
     }
 
-    public void takeOrder(Order order) {
+    public void takeOrder(Order order) throws Exception {
         if (openForBusiness) {
             int donutsInOrder = order.getNumberOfDonuts();
             if (donutsInOrder <= donutsRemaining) {
@@ -65,7 +65,7 @@ public class MyDonutShop {
         }
     }
 
-    public void addOrder(Order order){
+    public void addOrder(Order order) throws Exception {
         if(paymentService.charge(order)){
             orders.add(order);
             if(order.isDelivery()){

@@ -1,4 +1,6 @@
-package _09_intro_to_white_box_testing.models;
+package _10_white_box_testing.models;
+
+import _09_intro_to_white_box_testing.models.Order;
 
 /*
 This class would communicate with an API to make actual charges to the customers' cards.  The Stripe API is
