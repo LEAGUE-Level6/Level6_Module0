@@ -4,7 +4,6 @@ import _02_cat_facts_API.data_transfer_objects.CatWrapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /*
@@ -37,7 +36,7 @@ public class CatFactsApi {
                 .retrieve()
                 .bodyToMono(String.class);
 
-        //collect the response from the Flux object
+        //collect the response from the Mono object
         String response = stringMono.block();
 
         //print out the actual JSON response -
@@ -58,17 +57,17 @@ public class CatFactsApi {
 
         //Make the request, saving the response in an object of the type that you just created in your
         //data_transfer_objects package (CatWrapper)
-        Mono<CatWrapper> catWrapperFlux = webClient.get()
+        Mono<CatWrapper> catWrapperMono = webClient.get()
                 .retrieve()
                 .bodyToMono(CatWrapper.class);
 
         //collect the response into a java object using the class you just created
-        CatWrapper catWrapper = catWrapperFlux.block();
+        CatWrapper catWrapper = catWrapperMono.block();
 
         //get the cat fact from the response
         String message = catWrapper.getData().get(0);
 
-        //send the message
+        //return the message
         return message;
 
     }

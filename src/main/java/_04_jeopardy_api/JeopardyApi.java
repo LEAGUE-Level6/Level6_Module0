@@ -4,8 +4,9 @@ import _04_jeopardy_api.data_transfer_objects.ClueWrapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -33,14 +34,14 @@ public class JeopardyApi {
         //create the request URL
         //can be found in the documentation: http://jservice.io/
             //enter to code from the NewsAPI example to make the request
-        Flux<ClueWrapper> clueWrapperFlux = webClient.get()
+        Mono<ClueWrapper[]> clueWrapperMono = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("value", value)
                         .build())
                 .retrieve()
                 /*.onStatus(httpStatus -> HttpStatus.NOT_FOUND.equals(httpStatus),
                         clientResponse -> Mono.empty())*/
-                .bodyToFlux(ClueWrapper.class);
+                .bodyToMono(ClueWrapper[].class);
 
             //1
             //uncomment the next line to see the actual JSON response -
@@ -53,7 +54,7 @@ public class JeopardyApi {
             //select Target Language = java, Source Type = JSON, Annotation Style = Gson
 
 
-        List<ClueWrapper> clueWrapper =  clueWrapperFlux.collectList().block();
+        List<ClueWrapper> clueWrapper = Arrays.asList(clueWrapperMono.block());
 
         //3
             //Get a random number less than the size of the jsonArray
