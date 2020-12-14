@@ -22,4 +22,15 @@ public class Result {
         return link;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthors(List<String> authors) {
+        this.authors = authors;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 }

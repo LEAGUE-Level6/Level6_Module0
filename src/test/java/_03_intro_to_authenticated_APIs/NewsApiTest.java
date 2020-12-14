@@ -118,7 +118,6 @@ class NewsApiTest {
         //then
         verify(webClientMock, times(1)).get();
         assertEquals(expectedStory, actualStory);
-
     }
 
 

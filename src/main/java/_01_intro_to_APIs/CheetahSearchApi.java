@@ -78,9 +78,9 @@ public class CheetahSearchApi {
         System.out.println(response);
     }
 
-    public String getBookByTopic(String topic) {
+    public Result[] getBookByTopic(String topic) {
 
-        Mono<Result[]> cheetahWrapperMono = webClient
+        Mono<Result[]> cheetahMono = webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("q", topic)
@@ -88,11 +88,15 @@ public class CheetahSearchApi {
                 .retrieve()
                 .bodyToMono(Result[].class);
 
-        //collect the response into a java object using the classes you just created
-        Result[] cheetahWrapper = cheetahWrapperMono.block();
+        //the request returns an array, but we'll just return the result at index 0
+        return cheetahMono.block();
+    }
 
-        //We'll just use the first result from the list
-        Result result = cheetahWrapper[0];
+    public String findBook(String topic){
+        //collect the response into a java object using the classes you just created
+        Result[] results =  getBookByTopic(topic);
+
+        Result result = results[0];
 
         //get the first article (these are just java objects now)
         String bookTitle = result.getTitle();
@@ -105,9 +109,8 @@ public class CheetahSearchApi {
                 bookTitle + " -\n"
                         + bookLink;
 
-        //send the message
+        //return the message
         return message;
-
     }
 
     public void setWebClient(WebClient webClient) {
