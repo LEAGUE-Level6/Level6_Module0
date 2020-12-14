@@ -30,27 +30,32 @@ public class CatFactsApi {
     }
 
     public void testRequest(){
-        //Use the WebClient to make the request, converting the response to a String
-        //this request doesn't require url parameters, so you can omit the .uri() method call entirely
+        /*
+        Use the WebClient to make the request, converting the response to String.class.
+        This request doesn't require url parameters, so you can omit the .uri() method call entirely
+        */
         Mono<String> stringMono = webClient.get()
                 .retrieve()
                 .bodyToMono(String.class);
 
-        //collect the response from the Mono object
+        //Collect the response from the Mono object
         String response = stringMono.block();
 
-        //print out the actual JSON response -
-        //this is what you will input into jsonschema2pojo.com
+        /*
+        Print out the actual JSON response -
+        this is what you will input into jsonschema2pojo.com
+         */
         System.out.println(response);
 
-        //Use http://www.jsonschema2pojo.org/ to generate your POJO
-        //and place it in the cat_facts_API.data_transfer_objects package.
-        //Select:
-        //Class name: CatWrapper
-        //Target Language = java
-        //Source Type = JSON
-        //Annotation Style = Gson
-
+        /*
+        Use http://www.jsonschema2pojo.org/ to generate your POJO
+        and place it in the cat_facts_API.data_transfer_objects package.
+        Select:
+        Class name: CatWrapper
+        Target Language = java
+        Source Type = JSON
+        Annotation Style = Gson
+        */
     }
 
     public String getCatFact() {
@@ -61,10 +66,10 @@ public class CatFactsApi {
                 .retrieve()
                 .bodyToMono(CatWrapper.class);
 
-        //collect the response into a java object using the class you just created
+        //Use block() to collect the response into a java object using the class you just created
         CatWrapper catWrapper = catWrapperMono.block();
 
-        //get the cat fact from the response
+        //get the cat fact from the Data of the response
         String message = catWrapper.getData().get(0);
 
         //return the message

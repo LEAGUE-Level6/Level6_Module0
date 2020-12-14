@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 /*
 An Application Programming Interface (API) is an access point to an external service.  For example, this Cheetah Search API allows
 people to send a request, and receive information about books.  This opens a whole world of possibilities, allowing
-the programs you write to communicate with other applications which are on the internet.  At this point, we will focus on APIs
+the programs you write to communicate with other applications that are on the internet.  At this point, we will focus on APIs
 that allow us to GET information, but some APIs also allow users to change the data that is stored
 by that service.
 
@@ -38,11 +38,13 @@ public class CheetahSearchApi {
 
     public void testRequest() {
 
-        //the following code makes the request and receives the response from newsapi.org
-        //the .uri() is used to build the uri on top of the previously specified base url from the constructor.
-        //This uri is where are making our GET request
-        //the resulting uri would look like:
-        //http://newsapi.org/v2/everything?q=pizza&sortBy=popularity&apiKey=59ac01326c584ac0a069a29798794bec
+        /*
+        The following code makes the request and receives the response from cheetah.api.jointheleague.org.
+        In this scenario the .uri() method is is used to add our search term as a URL parameter
+        at the end of the previously specified base url from the constructor.
+        This uri is where are making our GET request the resulting uri would look like:
+        https://cheetah.api.jointheleague.org/searchLocResults?q=java
+        */
         Mono<String> stringMono = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("q", "Java")
@@ -53,7 +55,7 @@ public class CheetahSearchApi {
 
         /*
             JSON (JavaScript Object Notation) is the current standard for transmitting data objects over the internet.
-            It consists of attribute-value pairs.  A simple JSON object may look like:
+            It consists of attribute-value pairs.  A simple JSON object might look like:
             { name : "John Doe", age : 15 }
 
             The response to our request is received in JSON, but we need to turn that into a Java object in order
@@ -68,18 +70,19 @@ public class CheetahSearchApi {
             If using jsonschema2pojo.com, select Target Language = java, Source Type = JSON, Annotation Style = Gson
              */
 
-        //Notice on line 55 that we are currently converting the response to String.class.
-        //This is how we would get the response as a String in order to create the classes in the
-        //data_transfer_objects package.
-        //Once we have created those classes, we are able to save the response as a java object, and effectively
-        //manipulate the response using getters to pull exactly what we need out of it.
+        /*
+        Notice that when bodyToMono() is called above, that we are currently converting the response to String.class.
+        This is how we would get the response as a String in order to create the classes in the
+        data_transfer_objects package.
+        Once we have created those classes, we are able to save the response as a java object, and effectively
+        manipulate the response using getters to pull exactly what we need out of it.
+         */
         String response = stringMono.block();
 
         System.out.println(response);
     }
 
     public Result[] getBookByTopic(String topic) {
-
         Mono<Result[]> cheetahMono = webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
@@ -88,7 +91,6 @@ public class CheetahSearchApi {
                 .retrieve()
                 .bodyToMono(Result[].class);
 
-        //the request returns an array, but we'll just return the result at index 0
         return cheetahMono.block();
     }
 
@@ -96,9 +98,10 @@ public class CheetahSearchApi {
         //collect the response into a java object using the classes you just created
         Result[] results =  getBookByTopic(topic);
 
+        //take the first Result in the array
         Result result = results[0];
 
-        //get the first article (these are just java objects now)
+        //get the first article
         String bookTitle = result.getTitle();
 
         //get the title of the article
