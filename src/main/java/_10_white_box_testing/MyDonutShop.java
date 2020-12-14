@@ -13,48 +13,46 @@ for more information about unit testing this class.
 
 import _09_intro_to_white_box_testing.models.DeliveryService;
 import _09_intro_to_white_box_testing.models.Order;
+import _10_white_box_testing.models.BakeryService;
 import _10_white_box_testing.models.PaymentService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class    MyDonutShop {
+public class MyDonutShop {
 
     private boolean openForBusiness;
 
-    private int donutsRemaining;
-
     private List<Order> orders = new ArrayList<>();
 
-    PaymentService paymentService;
+    private PaymentService paymentService;
 
-    DeliveryService deliveryService;
+    private DeliveryService deliveryService;
 
-    public MyDonutShop(PaymentService paymentService, DeliveryService deliveryService) {
+    private BakeryService bakeryService;
+
+    public MyDonutShop(PaymentService paymentService,
+                       DeliveryService deliveryService,
+                       BakeryService bakeryService) {
         this.paymentService = paymentService;
         this.deliveryService = deliveryService;
+        this.bakeryService = bakeryService;
     }
 
-    //    public static void main(String[] args) {
-//        MyDonutShop myDonutShop = new MyDonutShop();
-//        myDonutShop.openForTheDay();
-//        myDonutShop.takeOrder(new Order("Patrick", 100));
-//    }
-
     public void openForTheDay() {
-        makeDonuts();
+        bakeryService.makeDonuts();
         openForBusiness = true;
     }
 
     public void closeForTheDay(){
-        throwAwayLeftovers();
+        bakeryService.throwAwayLeftovers();
         openForBusiness = false;
     }
 
     public void takeOrder(Order order) throws Exception {
         if (openForBusiness) {
             int donutsInOrder = order.getNumberOfDonuts();
-            if (donutsInOrder <= donutsRemaining) {
+            if (donutsInOrder <= bakeryService.getDonutsRemaining()) {
                 addOrder(order);
             } else {
                 throw new IllegalArgumentException("Insufficient donuts remaining");
@@ -68,18 +66,11 @@ public class    MyDonutShop {
     public void addOrder(Order order) throws Exception {
         if(paymentService.charge(order)){
             orders.add(order);
+            bakeryService.removeDonuts(order.getNumberOfDonuts());
             if(order.isDelivery()){
                 deliveryService.scheduleDelivery(order);
             }
         }
-    }
-
-    public void makeDonuts(){
-        this.donutsRemaining += 50;
-    }
-
-    public void throwAwayLeftovers() {
-        this.donutsRemaining = 0;
     }
 
     public void setPaymentService(PaymentService paymentService) {

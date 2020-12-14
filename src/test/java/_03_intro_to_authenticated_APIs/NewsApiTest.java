@@ -9,19 +9,22 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.*;
 import org.springframework.web.util.UriBuilder;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Function;
 
-    import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 
 class NewsApiTest {
 
-    NewsApi underTest;
+    NewsApi newsApi;
 
     @Mock
     WebClient webClientMock;
@@ -36,49 +39,85 @@ class NewsApiTest {
     ResponseSpec responseSpecMock;
 
     @Mock
-    ApiExampleWrapper apiExampleWrapperMock;
-
-    @Mock
-    Article articleMock;
+    Mono<ApiExampleWrapper> apiExampleWrapperMonoMock;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        underTest = new NewsApi();
-        underTest.setWebClient(webClientMock);
+        newsApi = new NewsApi();
+        newsApi.setWebClient(webClientMock);
     }
 
     @Test
     void itShouldGetNewsStoryByTopic() {
-        //Given
+        //given
         String topic = "Cows";
+        Article expectedArticle = new Article();
+        expectedArticle.setTitle("Cows: Nature's Menace?");
+        expectedArticle.setContent("No, they are not.");
+        expectedArticle.setUrl("www.cowtruth.com");
+        List<Article> expectedArticles = Collections.singletonList(expectedArticle);
+
+        ApiExampleWrapper expectedApiExampleWrapper = new ApiExampleWrapper();
+        expectedApiExampleWrapper.setArticles(expectedArticles);
+
         when(webClientMock.get())
                 .thenReturn(requestHeadersUriSpecMock);
         when(requestHeadersUriSpecMock.uri((Function<UriBuilder, URI>) any()))
                 .thenReturn(requestHeadersSpecMock);
         when(requestHeadersSpecMock.retrieve())
                 .thenReturn(responseSpecMock);
-        when(responseSpecMock.bodyToFlux(ApiExampleWrapper.class))
-                .thenReturn(Flux.just(apiExampleWrapperMock));
-        when(apiExampleWrapperMock.getArticles())
-                .thenReturn(new ArrayList<Article>() {{
-                    add(articleMock);
-                }});
+        when(responseSpecMock.bodyToMono(ApiExampleWrapper.class))
+                .thenReturn(apiExampleWrapperMonoMock);
+        when(apiExampleWrapperMonoMock.block())
+                .thenReturn(expectedApiExampleWrapper);
 
+        //when
+        ApiExampleWrapper actualApiExampleWrapper = newsApi.getNewsStoryByTopic(topic);
 
-        when(articleMock.getTitle())
-                .thenReturn("Cows: Nature's Menace?");
-        when(articleMock.getContent())
-                .thenReturn("No, they are not.");
-        when(articleMock.getUrl())
-                .thenReturn("www.cowtruth.com");
-
-        //When
-        underTest.getNewsStoryByTopic(topic);
-
-        //Then
+        //then
         verify(webClientMock, times(1)).get();
+        Article actualArticle = actualApiExampleWrapper.getArticles().get(0);
+        assertEquals(expectedArticle, actualArticle);
+    }
 
+    @Test
+    void itShouldFindStory(){
+        //given
+        String topic = "Cows";
+        String articleTitle = "Cows: Nature's Menace?";
+        String articleContent = "No, they are not.";
+        String articleUrl = "www.cowtruth.com";
+
+        Article expectedArticle = new Article();
+        expectedArticle.setTitle(articleTitle);
+        expectedArticle.setContent(articleContent);
+        expectedArticle.setUrl(articleUrl);
+        List<Article> expectedArticles = Collections.singletonList(expectedArticle);
+
+        ApiExampleWrapper expectedApiExampleWrapper = new ApiExampleWrapper();
+        expectedApiExampleWrapper.setArticles(expectedArticles);
+
+        when(webClientMock.get())
+                .thenReturn(requestHeadersUriSpecMock);
+        when(requestHeadersUriSpecMock.uri((Function<UriBuilder, URI>) any()))
+                .thenReturn(requestHeadersSpecMock);
+        when(requestHeadersSpecMock.retrieve())
+                .thenReturn(responseSpecMock);
+        when(responseSpecMock.bodyToMono(ApiExampleWrapper.class))
+                .thenReturn(apiExampleWrapperMonoMock);
+        when(apiExampleWrapperMonoMock.block())
+                .thenReturn(expectedApiExampleWrapper);
+
+        String expectedStory = articleTitle + " -\n"
+                + articleContent
+                + "\nFull article: " + articleUrl;
+        //when
+        String actualStory = newsApi.findStory(topic);
+
+        //then
+        verify(webClientMock, times(1)).get();
+        assertEquals(expectedStory, actualStory);
 
     }
 

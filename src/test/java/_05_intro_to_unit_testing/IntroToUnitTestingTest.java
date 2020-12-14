@@ -13,41 +13,41 @@ class introToUnitTestingTest {
 
     @Test
     void itShouldAdd() {
-        //Given
+        //given
         int a = 10;
         int b = 15;
         int expected = 25;
 
-        //When
-        //Then
+        //when
+        //then
         assertEquals(expected, underTest.add(a, b));
     }
 
     @Test
     void itShouldSayHello() {
-        //Given
+        //given
         String name = "Matt";
         String expected = "Hello Matt";
 
-        //When
-        //Then
+        //when
+        //then
         String actual = underTest.sayHello(name);
         assertEquals(expected, actual);
     }
 
     @Test
     void itShouldCreateButton() {
-        //Given
-        //When
-        //Then
+        //given
+        //when
+        //then
         assertTrue(underTest.createButton() instanceof JButton);
     }
 
     @Test
     void itShouldThrowException(){
-        //Given
-        //When
-        //Then
+        //given
+        //when
+        //then
         Throwable exceptionThrown = assertThrows(IllegalArgumentException.class, () -> underTest.throwsException());
         assertEquals(exceptionThrown.getMessage(), "This should throw an exception");
     }

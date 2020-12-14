@@ -5,7 +5,7 @@ import _03_intro_to_authenticated_APIs.data_transfer_objects.Article;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /*
 Most APIs require that you provide some sort of proof that you have access to that service.  This can be accomplished
@@ -45,14 +45,14 @@ public class NewsApi {
         //This uri is where are making our GET request
         //the resulting uri would look like:
         //http://newsapi.org/v2/everything?q=pizza&sortBy=popularity&apiKey=59ac01326c584ac0a069a29798794bec
-        Flux<String> stringFlux = webClient.get()
+        Mono<String> stringMono = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("q", "pizza")
                         .queryParam("sortBy", "popularity")
                         .queryParam("apiKey", apiKey)
                         .build())
                 .retrieve()
-                .bodyToFlux(String.class);
+                .bodyToMono(String.class);
 
 
         /*
@@ -77,24 +77,27 @@ public class NewsApi {
         //data_transfer_objects package.
         //Once we have created those classes, we are able to save the response as a java object, and effectively
         //manipulate the response using getters to pull exactly what we need out of it.
-        String response = stringFlux.collectList().block().get(0);
+        String response = stringMono.block();
 
         System.out.println(response);
     }
 
-    public String getNewsStoryByTopic(String topic) {
-
-        Flux<ApiExampleWrapper> apiExampleWrapperFlux = webClient.get()
+    public ApiExampleWrapper getNewsStoryByTopic(String topic) {
+        Mono<ApiExampleWrapper> apiExampleWrapperMono = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("q", topic)
                         .queryParam("sortBy", "popularity")
                         .queryParam("apiKey", apiKey)
                         .build())
                 .retrieve()
-                .bodyToFlux(ApiExampleWrapper.class);
+                .bodyToMono(ApiExampleWrapper.class);
 
-        //collect the response into a java object using the classes you just created
-        ApiExampleWrapper apiExampleWrapper = apiExampleWrapperFlux.collectList().block().get(0);
+        return apiExampleWrapperMono.block();
+    }
+
+    public String findStory(String topic){
+
+        ApiExampleWrapper apiExampleWrapper = getNewsStoryByTopic(topic);
 
         //get the first article (these are just java objects now)
         Article article = apiExampleWrapper.getArticles().get(0);
@@ -116,7 +119,6 @@ public class NewsApi {
 
         //send the message
         return message;
-
     }
 
     public void setWebClient(WebClient webClient) {

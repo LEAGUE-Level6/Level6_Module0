@@ -20,7 +20,7 @@ public class CatFactsApi {
 
     private static final String baseUrl = "https://meowfacts.herokuapp.com/";
 
-    private final WebClient webClient;
+    private WebClient webClient;
 
     public CatFactsApi() {
         this.webClient = WebClient
@@ -58,12 +58,12 @@ public class CatFactsApi {
 
         //Make the request, saving the response in an object of the type that you just created in your
         //data_transfer_objects package (CatWrapper)
-        Flux<CatWrapper> catWrapperFlux = webClient.get()
+        Mono<CatWrapper> catWrapperFlux = webClient.get()
                 .retrieve()
-                .bodyToFlux(CatWrapper.class);
+                .bodyToMono(CatWrapper.class);
 
         //collect the response into a java object using the class you just created
-        CatWrapper catWrapper = catWrapperFlux.collectList().block().get(0);
+        CatWrapper catWrapper = catWrapperFlux.block();
 
         //get the cat fact from the response
         String message = catWrapper.getData().get(0);
@@ -71,5 +71,9 @@ public class CatFactsApi {
         //send the message
         return message;
 
+    }
+
+    public void setWebClient(WebClient webClient) {
+        this.webClient = webClient;
     }
 }

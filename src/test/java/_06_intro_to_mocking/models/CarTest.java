@@ -30,42 +30,42 @@ class CarTest {
 
     @Test
     void itShouldStart() {
-        //GIVEN
+        //given
         boolean  expectedStart = true;
         when(engine.start()).thenReturn(true);
 
-        //WHEN
+        //when
         boolean actualStart = car.start();
 
-        //THEN
+        //then
         assertEquals(expectedStart,actualStart);
     }
 
     @Test
     void itShouldFillTank() {
-        //GIVEN
+        //given
         boolean expectedFilled = true;
         int octane = 85;
         when(gasTank.fill(octane)).thenReturn(true);
 
-        //WHEN
+        //when
         boolean actualFilled = gasTank.fill(octane);
 
-        //THEN
+        //then
         assertEquals(expectedFilled, actualFilled);
     }
 
 
     @Test
     void itShouldGetFuelLevel() {
-        //GIVEN
+        //given
         double expectedFuelLevelGallons = 12d;
         when(gasTank.getFuelLevel()).thenReturn(expectedFuelLevelGallons);
 
-        //WHEN
+        //when
         double actualFuelLevelGallons = gasTank.getFuelLevel();
 
-        //THEN
+        //then
         assertEquals(expectedFuelLevelGallons, actualFuelLevelGallons);
     }
 }

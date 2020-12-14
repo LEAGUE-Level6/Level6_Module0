@@ -34,14 +34,14 @@ class LeagueOfAmazingAstronautsTest {
 
     @Test
     void itShouldPrepareAstronaut() {
-        //Given
+        //given
         doNothing().when(astronautMock).train();
         doNothing().when(rocketshipMock).loadOccupant(astronautMock);
 
-        //When
+        //when
         underTest.prepareAstronaut(astronautMock);
 
-        //Then
+        //then
         verify(astronautMock, times(1)).train();
         verify(rocketshipMock, times(1)).loadOccupant(astronautMock);
         verifyNoMoreInteractions(astronautMock);
@@ -50,15 +50,15 @@ class LeagueOfAmazingAstronautsTest {
 
     @Test
     void itShouldLaunchRocket() {
-        //Given
+        //given
         String destination = "Mars";
         int milesToDesination = 68_000_000;
         when(rocketshipMock.isLoaded()).thenReturn(true);
 
-        //When
+        //when
         underTest.launchRocket(destination);
 
-        //Then
+        //then
         verify(rocketshipMock, times(1)).isLoaded();
         verify(rocketshipMock, times(1)).setDestination("Mars", milesToDesination);
         verify(rocketshipMock, times(1)).launch();
@@ -69,14 +69,14 @@ class LeagueOfAmazingAstronautsTest {
 
     @Test
     void itShouldThrowWhenDestinationIsUnknown() {
-        //Given
+        //given
         String destination = "Saturn";
         int milesToDesination = 834_000_000;
         when(rocketshipMock.isLoaded()).thenReturn(true);
 
 
-        //When
-        //Then
+        //when
+        //then
         assertThatThrownBy(() -> underTest.launchRocket(destination))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Destination is unavailable");
@@ -85,14 +85,14 @@ class LeagueOfAmazingAstronautsTest {
 
     @Test
     void itShouldThrowNotLoaded() {
-        //Given
+        //given
         String destination = "Saturn";
         int milesToDesination = 834_000_000;
         when(rocketshipMock.isLoaded()).thenReturn(false);
 
 
-        //When
-        //Then
+        //when
+        //then
         assertThatThrownBy(() -> underTest.launchRocket(destination))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("Rocketship is not loaded");
