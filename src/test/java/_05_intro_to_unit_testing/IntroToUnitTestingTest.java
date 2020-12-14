@@ -1,6 +1,5 @@
 package _05_intro_to_unit_testing;
 
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
@@ -9,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class introToUnitTestingTest {
 
-    IntroToUnitTesting underTest = new IntroToUnitTesting();
+    IntroToUnitTesting introToUnitTesting = new IntroToUnitTesting();
 
     @Test
     void itShouldAdd() {
@@ -19,8 +18,9 @@ class introToUnitTestingTest {
         int expected = 25;
 
         //when
+        int actual = introToUnitTesting.add(a, b);
         //then
-        assertEquals(expected, underTest.add(a, b));
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -30,8 +30,9 @@ class introToUnitTestingTest {
         String expected = "Hello Matt";
 
         //when
+        String actual = introToUnitTesting.sayHello(name);
+
         //then
-        String actual = underTest.sayHello(name);
         assertEquals(expected, actual);
     }
 
@@ -39,8 +40,9 @@ class introToUnitTestingTest {
     void itShouldCreateButton() {
         //given
         //when
+        Object actual = introToUnitTesting.createButton();
         //then
-        assertTrue(underTest.createButton() instanceof JButton);
+        assertTrue(actual instanceof JButton);
     }
 
     @Test
@@ -48,7 +50,7 @@ class introToUnitTestingTest {
         //given
         //when
         //then
-        Throwable exceptionThrown = assertThrows(IllegalArgumentException.class, () -> underTest.throwsException());
+        Throwable exceptionThrown = assertThrows(IllegalArgumentException.class, () -> introToUnitTesting.throwsException());
         assertEquals(exceptionThrown.getMessage(), "This should throw an exception");
     }
 
