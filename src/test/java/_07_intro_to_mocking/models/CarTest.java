@@ -1,4 +1,4 @@
-package _06_intro_to_mocking.models;
+package _07_intro_to_mocking.models;
 
 import _07_intro_to_mocking.models.Car;
 import _07_intro_to_mocking.models.Engine;
