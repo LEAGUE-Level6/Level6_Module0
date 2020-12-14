@@ -44,6 +44,7 @@ class NewsApiTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
         newsApi = new NewsApi();
         newsApi.setWebClient(webClientMock);
     }

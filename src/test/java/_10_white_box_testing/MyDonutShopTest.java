@@ -63,6 +63,7 @@ class MyDonutShopTest {
     void setUp() {
         //This line initializes all of the mocks declared above
         MockitoAnnotations.openMocks(this);
+
         myDonutShop = new MyDonutShop(paymentService, deliveryService, bakeryService);
         //injecting the mocks into MyDonutShop using setters
         myDonutShop.setPaymentService(paymentService);

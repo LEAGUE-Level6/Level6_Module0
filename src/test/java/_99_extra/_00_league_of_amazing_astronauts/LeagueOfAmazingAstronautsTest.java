@@ -28,6 +28,7 @@ class LeagueOfAmazingAstronautsTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
         underTest = new LeagueOfAmazingAstronauts();
         underTest.setRocketship(rocketshipMock);
     }
@@ -87,7 +88,7 @@ class LeagueOfAmazingAstronautsTest {
         String destination = "Saturn";
         int milesToDesination = 834_000_000;
         when(rocketshipMock.isLoaded()).thenReturn(false);
-        
+
         //when
         //then
         assertThatThrownBy(() -> underTest.launchRocket(destination))
