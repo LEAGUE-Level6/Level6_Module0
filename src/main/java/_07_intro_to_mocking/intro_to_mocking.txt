@@ -1,3 +1,30 @@
-Go to src/test/java/_06_intro_to_mocking/models/CarTest.java
+Remember that the point of the unit testing is to ensure that one small part of the code that we wrote is working correctly.
+There are a few scenarios that can complicate our unit tests significantly, which leads us to the next topic: mocking.
 
-After reviewing the examples there, please complete src/test/java/_06_intro_to_mocking/models/DeliveryDriverTest.java
+First, when do we want to use a mock:
+1. A class utilizes a source that is unreliable (e.g. network call, load from file)
+2. A class is overly difficult to instantiate (e.g. lots of difficult constructor parameters)
+3. When we want to verify that a certain behavior occurred when a method was invoked. (e.g. no interactions, certain number of interactions, or methods called in certain order)
+    *We will talk more about this last point in upcoming sections
+
+We can create mocks of any dependencies (e.g. member variables) that a class uses.
+These mocks are used identically to the original objects that they represent, but do not actually run the code
+contained within when methods are called.  Mockito, the mocking library which we will use, accomplishes this by using
+reflection to inspect these objects and create subclasses that return default/null values.
+
+How are we supposed to write tests if all of our mocked objects simply return default values?  We can actually
+program our mocks to return a specific values when a specific method is invoked on it.  Thereby, we can avoid the
+problems associated with using the actual class, while still returning an appropriate value from the method when it is
+invoked.  This process is known as "stubbing".
+
+It is important to note that the ideal scenario is that we don't mock any objects.  Mocking should be used
+sparingly, and only when it is really necessary.  However, for the following exercises we may mock some objects when it is not
+strictly necessary for the sake of practice.
+
+In summary, mocking an object allows us to avoid complications associated with instantiating or using a class, and stubbing
+allows us to program the mock to return a specific value when a method is invoked.
+
+Before moving on to the next section, please familiarize yourself with the following code:
+src/main/java/_07_intro_to_mocking/models/Car.java
+src/test/java/_07_intro_to_mocking/models/CarTest.java
+

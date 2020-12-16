@@ -3,7 +3,7 @@ package _04_jeopardy_api.data_transfer_objects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ClueWrapper {
+public class Clue {
 
     @SerializedName("id")
     @Expose

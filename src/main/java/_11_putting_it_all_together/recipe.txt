@@ -1,5 +1,38 @@
 Now we will look at how to use unit testing and mocking to test a class that utilizes an API.
 Connecting to an API is a prime example of when we would want to use mocking, as we do not want to rely
-on the class making the request, or the service itself when we write unit tests.
-Examine IntroToApisTest in the main.java.test._01_intro_to_APIs package, and ask if you have any questions.
-Next, you will apply everything we have discussed to test a class utilizing an API yourself.
+on receiving information from the API when we write unit tests.  Remember that when it comes to unit testing, we
+are only attempting to test the individual units of code that we wrote, not the connectivity to an external resource.
+
+
+There is one final topic that is crucial to a fundamental understanding of unit testing, the idea of "code coverage."
+Code coverage refers to how much of the original code we wrote is covered by our units tests.  Luckily, our IDE has
+built-in support to figure this out for us!
+
+Eclipse:
+Menu Bar > Run > Coverage
+OR
+Use the play button with the red and green rectangle under it.
+
+You will see lines of code that are highlighted green or red.
+
+IntelliJ:
+Menu Bar > Run > Run <classname> with Coverage.
+OR
+Use the play button with the shield behind it.
+
+You will see red and green rectangle appear in the gutter (next to the line numbers)
+
+
+The red represents code that is currently not covered by the unit tests, whereas green indicates code that is.
+The code coverage will also be displayed as a percentage within the IDE.  While 100% coverage is ideal on a class level,
+it may not be feasible.  There are also certain things on a project level that aren't feasible
+to unit test (e.g. configuration files).
+
+When unit testing a class, code coverage can be especially useful to find areas that you have not tested yet, including
+certain branches of complex methods.
+
+Examine src/test/java/_01_intro_to_APIs/CheetahSearchApiTest.java before moving on to the next section.  Please make
+sure to run the test with coverage on this class.  Then, you could try deleting one of the test methods and seeing how
+the code coverage changes.
+
+

@@ -1,0 +1,37 @@
+A few final words on unit testing:
+
+
+As with other parts of programming, there are different opinions regarding style.  Throughout these unit test classes,
+two different naming conventions for methods were used:
+
+itShould___
+
+given_when_then (A.K.A the Behavior Driven Design naming convention)
+
+One thing is universally agreed upon regarding this topic: the name of the test method should tell us a complete story of
+what piece of functionality it covers.  Throughout the previous test classes, the itShould___ was typically used when
+the test covered the entire method, and when it covered the happy path.  However the BDD naming convention is much more
+descriptive when it comes to naming tests that cover certain branches within a method
+e.g: givenNoDrivers_whenDeliver_thenThrowException()
+
+
+If you have a new found love for unit testing, there are a couple other topics you may want to look into that were not
+within the scope of this module:
+-Mockito @Spy annotation
+    -It is the same idea as a mock, except it simply wraps an actual instance of the class.  All the stubbing and ability
+    to track interactions is the same as a mock, but unlike a mock, all the original functionality of the class remains
+    usable.
+
+-Mockito ArgumentCaptor
+    -A totally new feature that allows us to capture arguments that are passed into a method invoked within our test
+    method, in order for us to inspect them.
+    Imagine you passed some parameters into the method you are testing. Somewhere within the method those parameters
+    are used to create an object which is, in turn, used as a parameter to call a method.  By using an ArgumentCaptor,
+    you can capture that parameter and verify that it contains the values you are expecting it to contain.
+
+-Additional possible uses of the Mockito verify() method that were not discussed.
+
+At the time of writing, articles from baeldung.com should prove to be good resources on these topics and others.
+
+
+If you would like more unit testing practice, you can check out the _99_extra package.

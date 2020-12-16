@@ -1,3 +1,1 @@
-Go to src/test/java/_06_intro_to_mocking/models/CarTest.java
-
-After reviewing the examples there, please complete src/test/java/_06_intro_to_mocking/models/DeliveryDriverTest.java
+Please complete src/test/java/_08_mocking/modelsDeliveryDriverTest.java

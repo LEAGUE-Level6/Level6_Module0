@@ -13,25 +13,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
-/*
-In the previous unit testing recipes, we examined that the results of calling a method was the result that we were expecting.
-This is called black-box testing.  We aren't peering into the method to test how it actually works, we simply invoke the
-method and check that it gives us back was we expect.
-
-
-There are some scenarios when black-box testing will not suffice:
--When the method returns void.
--When we want to verify that a specific behavior occurred within the method.
-
-The first reason above should be clear: we simply cannot verify that a method returns what we are expecting if the method
-returns nothing at all.  The second reason is especially important for methods that have a lot of branching logic.
-
-In these scenarios, we want to engage in white-box testing.  White-box testing examines what the method does while it is
-being, rather than simply taking a look at what it returns.  There is additional unit testing syntax that allows us to
-verify that specific things occurred when the method was called.
-
- */
 class DeliveryServiceTest {
 
     DeliveryService deliveryService;
@@ -111,6 +92,8 @@ class DeliveryServiceTest {
         //then
         Throwable exceptionThrown = assertThrows(Exception.class, () -> deliveryService.deliver());
         assertEquals(exceptionThrown.getMessage(), "Sorry we currently do not have the resources available to complete more deliveries");
+        verify(deliveryDriver, never()).completeDelivery(any());
+
     }
 
     @Test
@@ -123,11 +106,12 @@ class DeliveryServiceTest {
         //then
         Throwable exceptionThrown = assertThrows(Exception.class, () -> deliveryService.deliver());
         assertEquals(exceptionThrown.getMessage(), "There are currently no orders to deliver");
+        verify(deliveryDriver, never()).completeDelivery(any());
     }
 
 
     @Test
-    void itShouldScheduleDelivery() throws Exception {
+    void itShouldScheduleDelivery(){
         //given
         Order order = new Order("CUSTOMER_NAME",
                 "CUSTOMER_PHONE_NUMBER",

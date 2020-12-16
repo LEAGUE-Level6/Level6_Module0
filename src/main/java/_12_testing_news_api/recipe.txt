@@ -1,1 +1,4 @@
-Using the the IntroToApiTest as an example, write unit tests for the CatFactsApi
+Now we will use all of the skills discussed so far to write unit tests for NewsApi.  You can find the test class
+at src/test/java/_03_intro_to_authenticated_APIs/NewsApiTest.java.
+
+

@@ -1,6 +1,6 @@
 package _04_jeopardy_api;
 
-import _04_jeopardy_api.data_transfer_objects.ClueWrapper;
+import _04_jeopardy_api.data_transfer_objects.Clue;
 
 import javax.swing.*;
 
@@ -25,9 +25,7 @@ public class JeopardyRunner {
             }
 
             //call the getClue() method with i
-            ClueWrapper clue = jeopardyApi.getClue(i);
-            System.out.println(clue.getAnswer());
-            System.out.println(i);
+            Clue clue = jeopardyApi.getClue(i);
 
             //save the question in a String variable
             String question = clue.getQuestion();

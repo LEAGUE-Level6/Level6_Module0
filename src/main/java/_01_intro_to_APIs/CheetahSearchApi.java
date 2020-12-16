@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 /*
 An Application Programming Interface (API) is an access point to an external service.  For example, this Cheetah Search API allows
 people to send a request, and receive information about books.  This opens a whole world of possibilities, allowing
-the programs you write to communicate with other applications that are on the internet.  At this point, we will focus on APIs
+the programs you write to communicate with other applications over the internet.  At this point, we will focus on APIs
 that allow us to GET information, but some APIs also allow users to change the data that is stored
 by that service.
 

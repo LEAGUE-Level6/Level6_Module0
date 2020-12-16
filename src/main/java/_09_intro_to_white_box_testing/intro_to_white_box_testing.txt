@@ -1,0 +1,27 @@
+In the previous unit testing recipes, we examined that the results of calling a method was the result that we were expecting.
+This is called black-box testing.  We aren't peering into the method to test how it actually works, we simply invoke the
+method and check that it gives us back was we expect.
+
+There are some scenarios when black-box testing will not suffice:
+-When the method returns void.
+-When we want to verify that a specific behavior occurred within the method (remember point three from intro_to_mocking?)
+
+The first reason above should be clear: we simply cannot verify that a method returns what we are expecting if the method
+returns nothing at all.  The second reason is especially important for methods that have a lot of branching logic.
+Imagine we have a method that throws an error if a certain parameter has an invalid value.  It would be prudent of us to
+verify that certain methods associated with the ideal circumstances (i.e. the "happy path")are never invoked if we need
+to throw that exception.
+
+As an aside, it would be bad practice to write a single unit test that verifies the happy path, as well as test that an
+exception is thrown when a certain value is invalid.  This scenario is an example of when a "unit" of code is actually
+only part of a method.
+
+In the above scenarios, we want to engage in white-box testing.  White-box testing allows us to examine what the method
+does when it is invoked, rather than simply taking a look at what it returns.  We will now look at some additional
+unit testing syntax that allows us to verify that specific things occurred when the method was called.
+
+
+Before moving on to the next section, please familiarize yourself with the following code:
+src/main/java/_09_intro_to_white_box_testing/models/DeliveryService.java
+src/main/java/_09_intro_to_white_box_testing/models/Order.java
+src/test/java/_09_intro_to_white_box_testing/models/DeliveryServiceTest.java

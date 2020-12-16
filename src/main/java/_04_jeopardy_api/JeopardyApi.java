@@ -1,6 +1,6 @@
 package _04_jeopardy_api;
 
-import _04_jeopardy_api.data_transfer_objects.ClueWrapper;
+import _04_jeopardy_api.data_transfer_objects.Clue;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -29,43 +29,40 @@ public class JeopardyApi {
                 .build();
     }
 
-    public ClueWrapper getClue(int value) {
+    public Clue getClue(int value) {
 
         //create the request URL
         //can be found in the documentation: http://jservice.io/
-            //enter to code from the NewsAPI example to make the request
-        Mono<ClueWrapper[]> clueWrapperMono = webClient.get()
+
+        Mono<Clue[]> clueWrapperMono = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("value", value)
                         .build())
                 .retrieve()
                 /*.onStatus(httpStatus -> HttpStatus.NOT_FOUND.equals(httpStatus),
                         clientResponse -> Mono.empty())*/
-                .bodyToMono(ClueWrapper[].class);
+                .bodyToMono(Clue[].class);
 
-            //1
-            //uncomment the next line to see the actual JSON response -
-            // this is what was inputted into jsonschema2pojo.com
-            //System.out.println(jsonArray);
+        //1
+        //uncomment the next line to see the actual JSON response -
+        // this is what was inputted into jsonschema2pojo.com
+        //System.out.println(jsonArray);
 
-            //2
-            //Use http://www.jsonschema2pojo.org/ to generate your POJOs
-            //and place them in the cat_facts_API.pojo package
-            //select Target Language = java, Source Type = JSON, Annotation Style = Gson
+        //2
+        //Use http://www.jsonschema2pojo.org/ to generate your POJOs
+        //and place them in the cat_facts_API.pojo package
+        //select Target Language = java, Source Type = JSON, Annotation Style = Gson
 
 
-        List<ClueWrapper> clueWrapper = Arrays.asList(clueWrapperMono.block());
+        Clue[] clues = clueWrapperMono.block();
 
         //3
-            //Get a random number less than the size of the jsonArray
-            int index = new Random().nextInt(clueWrapper.size());
+        //Get a random number less than the size of the jsonArray
+        int index = new Random().nextInt(clues.length);
 
-            //deserialize the response into a java object using the class you just created
-            ClueWrapper clue = clueWrapper.get(index);
-
-            //4
-            //return the clue at that index in the jsonArray
-            return clue;
+        //4
+        //return the clue at the random index you just created
+        return clues[index];
 
 
     }
