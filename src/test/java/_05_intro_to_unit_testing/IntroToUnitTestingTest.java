@@ -19,6 +19,7 @@ class introToUnitTestingTest {
 
         //when
         int actual = introToUnitTesting.add(a, b);
+
         //then
         assertEquals(expected, actual);
     }

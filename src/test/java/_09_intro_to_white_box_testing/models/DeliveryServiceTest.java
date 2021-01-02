@@ -93,7 +93,6 @@ class DeliveryServiceTest {
         Throwable exceptionThrown = assertThrows(Exception.class, () -> deliveryService.deliver());
         assertEquals(exceptionThrown.getMessage(), "Sorry we currently do not have the resources available to complete more deliveries");
         verify(deliveryDriver, never()).completeDelivery(any());
-
     }
 
     @Test
