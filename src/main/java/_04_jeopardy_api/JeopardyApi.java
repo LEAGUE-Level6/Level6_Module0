@@ -34,14 +34,6 @@ public class JeopardyApi {
         //create the request URL
         //can be found in the documentation: http://jservice.io/
 
-        Mono<Clue[]> clueWrapperMono = webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .queryParam("value", value)
-                        .build())
-                .retrieve()
-                /*.onStatus(httpStatus -> HttpStatus.NOT_FOUND.equals(httpStatus),
-                        clientResponse -> Mono.empty())*/
-                .bodyToMono(Clue[].class);
 
         //1
         //uncomment the next line to see the actual JSON response -
@@ -54,16 +46,12 @@ public class JeopardyApi {
         //select Target Language = java, Source Type = JSON, Annotation Style = Gson
 
 
-        Clue[] clues = clueWrapperMono.block();
-
         //3
         //Get a random number less than the size of the jsonArray
-        int index = new Random().nextInt(clues.length);
 
         //4
         //return the clue at the random index you just created
-        return clues[index];
 
-
+        return null;
     }
 }
