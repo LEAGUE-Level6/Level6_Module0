@@ -37,7 +37,7 @@ public class JeopardyApi {
         //this method and supply it as a query parameter with the name of "value".  This allows us to retrieve a question
         //with the specified point value.
         //
-        //Make sure to save the response as type Clue.class in the bodyToMono() method call
+        //Make sure to save the response as type Clue[].class in the bodyToMono() method call
 
         //2
         //Get a random number less than the size of the Clue array
