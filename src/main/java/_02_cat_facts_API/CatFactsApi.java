@@ -63,11 +63,17 @@ public class CatFactsApi {
 
         //Use block() to collect the response into a java object using the class you just created
 
-        //get the cat fact from the Data of the response
-
-        //return the message
+        //return the Object
         return null;
 
+
+    }
+
+    public String findCatFact(){
+        //use the getCatFact method to retrieve a cat fact
+
+        //return the first (and only) String in the Arraylist of data in the response
+        return null;
     }
 
     public void setWebClient(WebClient webClient) {

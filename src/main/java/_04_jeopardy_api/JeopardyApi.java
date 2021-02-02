@@ -31,25 +31,18 @@ public class JeopardyApi {
 
     public Clue getClue(int value) {
 
-        //create the request URL
-        //can be found in the documentation: http://jservice.io/
-
-
-        //1
-        //uncomment the next line to see the actual JSON response -
-        // this is what was inputted into jsonschema2pojo.com
-        //System.out.println(jsonArray);
+        //1  Use the WebClient code from the previous exercises to make the request:
+        //Note:
+        //The base URL has already been provided, but we we need to take the "value" parameter passed into
+        //this method and supply it as a query parameter with the name of "value".  This allows us to retrieve a question
+        //with the specified point value.
+        //
+        //Make sure to save the response as type Clue.class in the bodyToMono() method call
 
         //2
-        //Use http://www.jsonschema2pojo.org/ to generate your POJOs
-        //and place them in the cat_facts_API.pojo package
-        //select Target Language = java, Source Type = JSON, Annotation Style = Gson
-
+        //Get a random number less than the size of the Clue array
 
         //3
-        //Get a random number less than the size of the jsonArray
-
-        //4
         //return the clue at the random index you just created
 
         return null;
