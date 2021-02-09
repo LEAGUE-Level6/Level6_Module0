@@ -10,32 +10,31 @@ public class JeopardyRunner {
 
         JeopardyApi jeopardyApi = new JeopardyApi();
 
-        //create a score variable
+        //1. Create a score variable
 
-
-        //add a for loop where i starts at 100,
+        //2. Add a for loop where:
+        //i starts at 100,
         //continues while i <= 1000
         //increments by 100
 
-
-            //if i == 700 or i == 900, continue;
+            //3. If i == 700 or i == 900, continue;
             //there are no questions for these values
 
-            //call the getClue() method with i
+            //4. Call the getClue() method with i
 
-            //save the question in a String variable
+            //5. Save the question in a String variable
 
-            //save the answer in a String variable
+            //6. Save the answer in a String variable
 
-            //save the title in a String variable
+            //7. Save the title in a String variable
             //note that this is part of the Category object
 
-            //use a JOptionPane to display the question
+            //8. Use a JOptionPane to display the question.
+            //You can set the title of the JOptionPane to the question title.
 
-            //if they got the question correct, add the value of that question to their score
+            //9. If they got the question correct, add the value of that question to their score
 
-        //tell the user their final score
-
+        //10. Tell the user their final score
 
     }
 
