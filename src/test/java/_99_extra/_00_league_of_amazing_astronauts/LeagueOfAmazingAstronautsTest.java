@@ -19,44 +19,81 @@ class LeagueOfAmazingAstronautsTest {
 
     LeagueOfAmazingAstronauts underTest = new LeagueOfAmazingAstronauts();
 
+    @Mock
+    Astronaut astronautMock;
+
+    @Mock
+    Rocketship rocketshipMock;
+
     @BeforeEach
     void setUp() {
+        MockitoAnnotations.openMocks(this);
 
+        underTest = new LeagueOfAmazingAstronauts();
+        underTest.setRocketship(rocketshipMock);
     }
 
     @Test
     void itShouldPrepareAstronaut() {
         //given
+        doNothing().when(astronautMock).train();
+        doNothing().when(rocketshipMock).loadOccupant(astronautMock);
 
         //when
+        underTest.prepareAstronaut(astronautMock);
 
         //then
+        verify(astronautMock, times(1)).train();
+        verify(rocketshipMock, times(1)).loadOccupant(astronautMock);
+        verifyNoMoreInteractions(astronautMock);
+        verifyNoMoreInteractions(rocketshipMock);
     }
 
     @Test
     void itShouldLaunchRocket() {
         //given
+        String destination = "Mars";
+        int milesToDesination = 68_000_000;
+        when(rocketshipMock.isLoaded()).thenReturn(true);
 
         //when
+        underTest.launchRocket(destination);
 
         //then
+        verify(rocketshipMock, times(1)).isLoaded();
+        verify(rocketshipMock, times(1)).setDestination("Mars", milesToDesination);
+        verify(rocketshipMock, times(1)).launch();
+        verifyNoMoreInteractions(astronautMock);
+        verifyNoMoreInteractions(rocketshipMock);
     }
 
 
     @Test
     void itShouldThrowWhenDestinationIsUnknown() {
         //given
+        String destination = "Saturn";
+        int milesToDesination = 834_000_000;
+        when(rocketshipMock.isLoaded()).thenReturn(true);
 
         //when
         //then
+        assertThatThrownBy(() -> underTest.launchRocket(destination))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Destination is unavailable");
     }
 
     @Test
     void itShouldThrowNotLoaded() {
         //given
+        String destination = "Saturn";
+        int milesToDesination = 834_000_000;
+        when(rocketshipMock.isLoaded()).thenReturn(false);
 
         //when
         //then
+        assertThatThrownBy(() -> underTest.launchRocket(destination))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("Rocketship is not loaded");
 
     }
 }
