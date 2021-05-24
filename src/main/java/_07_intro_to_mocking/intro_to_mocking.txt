@@ -1,15 +1,15 @@
-Remember that the point of the unit testing is to ensure that one small part of the code that we wrote is working correctly.
-There are a few scenarios that can complicate our unit tests significantly, which leads us to the next topic: mocking.
+Remember that the point of the unit testing is to ensure that one small part of the code we wrote is working correctly.
+There are a few scenarios that can complicate the completion or reliability our unit tests significantly:
 
-First, when do we want to use a mock:
 1. A class utilizes a source that is unreliable (e.g. network call, load from file)
 2. A class is overly difficult to instantiate (e.g. lots of difficult constructor parameters)
 3. When we want to verify that a certain behavior occurred when a method was invoked. (e.g. no interactions, certain number of interactions, or methods called in certain order)
-    *We will talk more about this last point in upcoming sections
+    *We will talk more about this last point in an upcoming section
 
-We can create mocks of any dependencies (e.g. member variables) that a class uses.
-These mocks are used identically to the original objects that they represent, but do not actually run the code
-contained within when methods are called.  Mockito, the mocking library which we will use, accomplishes this by using
+In the three scenarios above, we can utilize mocking to avoid problems.  We can create mocks of any dependencies
+(e.g. member variables) that a class uses. These mocks are used identically to the original objects that they represent,
+except they do not actually run the code contained within when methods are called,  instead simply returning a default value
+that corresponds to the return type of the method.  Mockito, the mocking library that we will use, accomplishes this by using
 reflection to inspect these objects and create subclasses that return default/null values.
 
 How are we supposed to write tests if all of our mocked objects simply return default values?  We can actually

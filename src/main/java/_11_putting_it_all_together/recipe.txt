@@ -23,7 +23,7 @@ Use the play button with the shield behind it.
 You will see red and green rectangle appear in the gutter (next to the line numbers)
 
 
-The red represents code that is currently not covered by the unit tests, whereas green indicates code that is.
+Red represents code that is currently not covered by the unit tests, whereas green indicates code that is covered.
 The code coverage will also be displayed as a percentage within the IDE.  While 100% coverage is ideal on a class level,
 it may not be feasible.  There are also certain things on a project level that aren't feasible
 to unit test (e.g. configuration files).
@@ -32,7 +32,7 @@ When unit testing a class, code coverage can be especially useful to find areas 
 certain branches of complex methods.
 
 Examine src/test/java/_01_intro_to_APIs/CheetahSearchApiTest.java before moving on to the next section.  Please make
-sure to run the test with coverage on this class.  Then, you could try deleting one of the test methods and seeing how
+sure to run the test with coverage on this class.  Then, you could try deleting one of the test methods to see how
 the code coverage changes.
 
 

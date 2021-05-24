@@ -2,12 +2,11 @@ package _10_white_box_testing;
 
 /*
 
-You are now the proud owner of a donut shop.  This program helps you keep track of your business,
-and you want to make sure that everything works correctly so that you don't lose money or customers.
+You are now the proud owner of a donut shop.  This program helps you keep track of your business.
+ You want to verify that everything works correctly, so that you don't lose money or customers.
 
 Familiarize yourself with the classes in this package, then complete the tests in
 src/test/java/_10_white_box_testing/MyDonutShopTest.java
-
 
  */
 

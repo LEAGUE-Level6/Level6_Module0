@@ -31,7 +31,6 @@ within the scope of this module:
 
 -Additional possible uses of the Mockito verify() method that were not discussed.
 
-At the time of writing, articles from baeldung.com should prove to be good resources on these topics and others.
-
+Articles from baeldung.com are usually good resources on these topics and others, if you wish to learn more.
 
 If you would like more unit testing practice, you can check out the _99_extra package.

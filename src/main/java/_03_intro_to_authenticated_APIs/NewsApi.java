@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 /*
 Most APIs require that you provide some sort of proof that you have access to that service.  This can be accomplished
 in many ways, but typically it is done through providing a secret token each time you make a request.  The token is usually
-created by the user via the API's website, and is used when requests are made to authorize yourself.
+created via the API's website, and is then used each time a requests is made to authorize yourself.
 
 This News API expects the user to pass the API key as a query parameter, just like the query parameters we saw the
 Cheetah Search API.
@@ -41,35 +41,35 @@ public class NewsApi {
     public void testRequest() {
 
         /*
-        Just like in the Cheetah Search API, we use the uri() method to add the token as a query parameter
+        Just like the search term in the Cheetah Search API, we use the uri() method to add the token as a query parameter
         The resulting uri would look like:
         http://newsapi.org/v2/everything?q=pizza&sortBy=popularity&apiKey=59ac01326c584ac0a069a29798794bec
          */
-        Mono<String> stringMono = webClient.get()
+        String response = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("q", "pizza")
                         .queryParam("sortBy", "popularity")
                         .queryParam("apiKey", apiKey)
                         .build())
                 .retrieve()
-                .bodyToMono(String.class);
-
-        String response = stringMono.block();
+                .bodyToMono(String.class)
+                .block();
 
         System.out.println(response);
     }
 
     public ApiExampleWrapper getNewsStoryByTopic(String topic) {
-        Mono<ApiExampleWrapper> apiExampleWrapperMono = webClient.get()
+        ApiExampleWrapper apiExampleWrapper = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("q", topic)
                         .queryParam("sortBy", "popularity")
                         .queryParam("apiKey", apiKey)
                         .build())
                 .retrieve()
-                .bodyToMono(ApiExampleWrapper.class);
+                .bodyToMono(ApiExampleWrapper.class)
+                .block();
 
-        return apiExampleWrapperMono.block();
+        return apiExampleWrapper;
     }
 
     public String findStory(String topic){

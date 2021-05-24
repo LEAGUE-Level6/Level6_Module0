@@ -9,8 +9,10 @@ import reactor.core.publisher.Mono;
 /*
 
 Use the meow facts API to show the user a random cat fact.
-Make an initial request, saving the response as a String to facilitate making your Plain Old Java Objects to represent the request.
-Then, write a method that will save the response as an instance of your object, returning the fact from that object.
+In the testRequest() method, we will make an initial request, saving the response as a String as you would if you needed
+to generate the Plain Old Java Objects to represent the request.  Then, write a method that will save the response as an instance of
+CatWrapper, returning the fact from that object.  You will find that the custom CatWrapper object that represents the response
+from this request as been provided for you in the data_transfer_objects package.
 
 A swagger page for this very simple API can be found here: https://app.swaggerhub.com/apis-docs/whiterabbit8/meowfacts/1.0.0
 
@@ -31,22 +33,20 @@ public class CatFactsApi {
 
     public void testRequest(){
         /*
-        Use the WebClient to make the request, converting the response to String.class.
+        Use WebClient to make the request, converting the response to String.class.
         This request doesn't require url parameters, so you can omit the .uri() method call entirely
         */
 
 
-        //Collect the response from the Mono object
-
 
         /*
         Print out the actual JSON response -
-        this is what you will input into jsonschema2pojo.com
+        this is what you would input into jsonschema2pojo.com
          */
 
 
         /*
-        Use http://www.jsonschema2pojo.org/ to generate your POJO
+        Use could use http://www.jsonschema2pojo.org/ to generate your POJO
         and place it in the cat_facts_API.data_transfer_objects package.
         Select:
         Class name: CatWrapper
@@ -61,11 +61,9 @@ public class CatFactsApi {
         //Make the request, saving the response in an object of the type that you just created in your
         //data_transfer_objects package (CatWrapper)
 
-        //Use block() to collect the response into a java object using the class you just created
 
         //return the Object
         return null;
-
 
     }
 
