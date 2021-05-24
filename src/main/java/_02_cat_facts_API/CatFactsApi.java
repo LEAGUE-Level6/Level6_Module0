@@ -56,7 +56,7 @@ public class CatFactsApi {
         */
     }
 
-    public String getCatFact() {
+    public CatWrapper getCatFact() {
 
         //Make the request, saving the response in an object of the type that you just created in your
         //data_transfer_objects package (CatWrapper)
