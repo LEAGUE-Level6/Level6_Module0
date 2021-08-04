@@ -1,6 +1,5 @@
 package _04_jeopardy_api;
 
-import _01_intro_to_APIs.data_transfer_objects.Result;
 import _04_jeopardy_api.data_transfer_objects.Clue;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -39,7 +38,6 @@ public class JeopardyApi {
         //with the specified point value.
         //
         //Make sure to save the response as type Clue[].class in the bodyToMono() method call
-
 
         //2
         //Get a random number less than the size of the Clue array

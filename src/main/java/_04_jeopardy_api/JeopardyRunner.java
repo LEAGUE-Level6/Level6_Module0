@@ -20,7 +20,7 @@ public class JeopardyRunner {
             //3. If i == 700 or i == 900, continue;
             //there are no questions for these values
 
-            //4. Call the getClue() method with i.  You will use this same clue object for steps 5-10.
+            //4. Call the getClue() method with i
 
             //5. Save the question in a String variable
 
@@ -29,14 +29,12 @@ public class JeopardyRunner {
             //7. Save the title in a String variable
             //note that this is part of the Category object
 
-            //8. Use the JOptionPane below to display the question.
-            //String guess = JOptionPane.showInputDialog(null, question, title, JOptionPane.QUESTION_MESSAGE);
+            //8. Use a JOptionPane to display the question.
+            //You can set the title of the JOptionPane to the question title.
 
             //9. If they got the question correct, add the value of that question to their score
 
-            //10.  If they got the question wrong, tell them the correct answer.
-
-        //11. Tell the user their final score
+        //10. Tell the user their final score
 
     }
 
