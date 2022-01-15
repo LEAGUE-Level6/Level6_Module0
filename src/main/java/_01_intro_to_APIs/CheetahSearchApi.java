@@ -66,9 +66,9 @@ public class CheetahSearchApi {
             the Plain Old Java Objects that represent the response we expect from our specific request.
             Normally you would need to make these yourself.
             There are multiple classes in this case, because some of the fields in the response are, themselves, objects.
-            You can use a tools like jsonschema2pojo.com to help with creating these classes, by inputting the JSON
+            You can use a tools like jsonschema2pojo.org to help with creating these classes, by inputting the JSON
             response from a request that you make.
-            If using jsonschema2pojo.com, select Target Language = java, Source Type = JSON, Annotation Style = Gson
+            If using jsonschema2pojo.org, select Target Language = java, Source Type = JSON, Annotation Style = Gson
              */
 
         /*
